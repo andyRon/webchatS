@@ -1,5 +1,7 @@
 <?php
 
+use App\Services\WebSocketHandler;
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -135,6 +137,13 @@ return [
 
     'event_handlers' => [],
 
+    'events' => [
+        // 一个事件可以被多个监听器监听并处理
+        \App\Events\MessageReceived::class => [
+            \App\Listeners\MessageListener::class
+        ]
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | WebSockets
@@ -148,7 +157,7 @@ return [
 
     'websocket' => [
         'enable' => false,
-        // 'handler' => XxxWebSocketHandler::class,
+         'handler' => WebSocketHandler::class,
     ],
 
     /*
@@ -249,7 +258,10 @@ return [
     |
     */
 
-    'cleaners' => [],
+    'cleaners' => [
+        // 在每次请求后清除本次请求的认证状态，以免被其他用户请求冒用
+        \Hhxsv5\LaravelS\Illuminate\Cleaners\AuthCleaner::class,
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -285,7 +297,8 @@ return [
         'daemonize'          => env('LARAVELS_DAEMONIZE', false),
         'dispatch_mode'      => env('LARAVELS_DISPATCH_MODE', 3),
         'worker_num'         => env('LARAVELS_WORKER_NUM', 30),
-        //'task_worker_num'    => env('LARAVELS_TASK_WORKER_NUM', 10),
+//        'task_worker_num'    => env('LARAVELS_TASK_WORKER_NUM', 10),
+        'task_worker_num' => function_exists('swoole_cpu_num') ? swoole_cpu_num() * 2 : 8,  // 异步事件的监听和处理需要开启
         'task_ipc_mode'      => 1,
         'task_max_request'   => env('LARAVELS_TASK_MAX_REQUEST', 100000),
         'task_tmpdir'        => @is_writable('/dev/shm/') ? '/dev/shm' : '/tmp',
