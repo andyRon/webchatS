@@ -245,3 +245,20 @@ Speed up your Laravel/Lumen
 ## 4 前端资源初始化
 
 前端界面基于 https://github.com/hua1995116/webchat
+
+
+
+```sh
+npm i socket.io-client --save-dev
+```
+
+
+
+```sh
+npm install laravel-mix --save-dev
+```
+
+
+
+
+
