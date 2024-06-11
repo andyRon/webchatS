@@ -23,7 +23,8 @@ class MessageListener extends Listener
     }
 
     /**
-     * Handle the event.
+     * 对事件进行处理。
+     * 对消息数据进行校验和保存，同时打印相应的日志信息
      * @param MessageReceived|Event $event
      */
     public function handle(MessageReceived|Event $event): void

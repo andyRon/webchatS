@@ -10,13 +10,21 @@ use Swoole\Http\Request;
 use Swoole\WebSocket\Frame;
 use Swoole\WebSocket\Server;
 
+/**
+ * 处理WebSocket通信
+ */
 class WebSocketHandler implements WebSocketHandlerInterface
 {
-
     public function __construct()
     {
     }
 
+    /**
+     * 连接建立时触发
+     * @param Server $server
+     * @param Request $request
+     * @return void
+     */
     public function onOpen(Server $server, Request $request)
     {
         Log::info('WebSocket链接建立:' . $request->fd);

@@ -136,7 +136,7 @@ return [
     */
 
     'event_handlers' => [],
-
+    // 异步事件即对应监听器的映射关系在 events 配置项中配置
     'events' => [
         // 一个事件可以被多个监听器监听并处理
         \App\Events\MessageReceived::class => [
@@ -154,10 +154,10 @@ return [
     | https://github.com/hhxsv5/laravel-s#enable-websocket-server
     |
     */
-
+    // 启动 WebSocket 并定义通信处理器
     'websocket' => [
-        'enable' => false,
-         'handler' => WebSocketHandler::class,
+        'enable' => true,
+        'handler' => WebSocketHandler::class,
     ],
 
     /*

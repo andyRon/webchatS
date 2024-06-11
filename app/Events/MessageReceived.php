@@ -23,7 +23,7 @@ class MessageReceived extends Event
         $this->userId = $userId;
     }
 
-    public function getData()
+    public function getData(): Message
     {
         $model = new Message();
         $model->room_id = $this->message->room_id;
