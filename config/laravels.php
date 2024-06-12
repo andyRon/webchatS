@@ -1,6 +1,6 @@
 <?php
 
-use App\Services\WebSocketHandler;
+use App\Services\WebSocket\WebSocketHandler;
 
 return [
     /*
@@ -317,5 +317,8 @@ return [
         'enable_coroutine'   => false,
         'upload_tmp_dir'     => @is_writable('/dev/shm/') ? '/dev/shm' : '/tmp',
         'http_compression'   => env('LARAVELS_HTTP_COMPRESSION', false),
+
+        'heartbeat_idle_time' => 600,
+        'heartbeat_check_interval' => 60,
     ],
 ];

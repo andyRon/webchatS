@@ -54285,8 +54285,12 @@ __webpack_require__.r(__webpack_exports__);
 // 通过 Socket.io 客户端发起 WebSocket 请求
 
 
-var api_token = _store__WEBPACK_IMPORTED_MODULE_1__["default"].state.userInfo.token;
-var socket = socket_io_client__WEBPACK_IMPORTED_MODULE_0___default()('http://webchats.test?api_token=' + api_token);
+
+// let api_token = store.state.userInfo.token;
+var socket = socket_io_client__WEBPACK_IMPORTED_MODULE_0___default()('http://webchats.test', {
+  path: '/ws',
+  transports: ['websocket']
+});
 /* harmony default export */ __webpack_exports__["default"] = (socket);
 
 /***/ }),
