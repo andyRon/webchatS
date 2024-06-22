@@ -325,3 +325,61 @@ Websocket 客户端使用的是 [socket.io-client](https://github.com/socketio/s
 
 
 ### 前后端登录接口联调
+
+🔖
+
+
+
+## 8 Websocket服务端重构与用户认证
+
+
+
+### 8.1 Websocket服务端重构
+
+
+
+#### 创建房间接口及实现类
+
+
+
+#### 编写用户认证实现代码
+
+房间是静态的空间，在房间里聊天的是动态的用户，因此，还要编写用户认证相关实现代码，以便唯一**区分不同用户以及管理不同房间、不同用户的聊天信息**。
+
+参照 [swooletw/laravel-swoole](https://github.com/swooletw/laravel-swoole) 的实现，在 `app/Services/WebSocket` 目录下创建一个 `Authenticatable` Trait 来实现用户认证相关业务逻辑
+
+
+
+
+
+#### 实现 Websocket 核心类
+
+- `on`：用于注册 Websocket 事件路由，注册实现拆分到 `routes/websocket.php` 中定义，从而方便维护，也让代码结构更加清晰，具体的业务逻辑处理都将在这里定义，处理完成后调用上述 `emit` 方法发送消息给客户端；
+- `eventExists`：判断指定事件路由是否存在；
+- `call`：如果某个事件路由存在，则调用对应的事件路由业务逻辑，所以 `on`、`eventExists`、`call` 三者环环相扣：`on` 负责注册、`eventExits` 负责匹配、`call` 负责执行；
+
+
+
+#### 注册Websocket事件路由
+
+`routes/websocket.php`
+
+
+
+🔖🔖
+
+#### 容器绑定和路由加载
+
+
+
+
+
+#### 完善 Websocket 配置
+
+
+
+#### 重构 WebSocketHandler 处理器
+
+
+
+### 8.2 Websocket客户端与服务端的用户认证
