@@ -112,7 +112,7 @@ class WebSocketHandler implements WebSocketHandlerInterface
         $pusher->push($this->parser->encode($pusher->getEvent(), $pusher->getMessage()));
     }
 
-    public function onClose(Server $server, $fd, $reactorId)
+    public function onClose(Server $server, $fd, $reactorId): void
     {
         Log::info('WebSocket链接关闭：' . $fd);
     }

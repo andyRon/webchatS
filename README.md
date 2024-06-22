@@ -266,25 +266,25 @@ npm install laravel-mix --save-dev
 
 ## 6 建立socket.io客户端与Swoole Websocket服务器的连接
 
-### 服务端改造方案
+### 6.1 服务端改造方案
 
-Websocket 客户端使用的是 [socket.io-client](https://github.com/socketio/socket.io-client)，服务端使用的是基于 Swoole 的 LaravelS 扩展包提供的 [WebSocket 服务器](https://laravelacademy.org/post/19700)，由于 [socket.io](https://socket.io/) 有一套自己的连接建立和数据编码机制，所以必须要对原来的 Websocket 服务器实现做调整，否则无法建立 WebSocket 连接。
+Websocket 客户端使用的是 [socket.io-client](https://github.com/socketio/socket.io-client)，服务端使用的是基于 Swoole 的 LaravelS 扩展包提供的 [WebSocket 服务器](https://laravelacademy.org/post/19700)，由于 [socket.io](https://socket.io/) 有**一套自己的连接建立和数据编码机制**，所以必须要对原来的 Websocket 服务器实现做调整，否则无法建立 WebSocket 连接。
 
 [LaravelS 扩展包](https://github.com/hhxsv5/laravel-s)对 Socket.io 客户端的支持并不友好，不过另一个流行的 Laravel Swoole 扩展包 [Laravel-Swoole](https://github.com/swooletw/laravel-swoole)则对其有很好的支持，甚至可以说就是对 socket.io 客户端的 PHP 服务端适配，具体可以参考其[官方文档说明](https://github.com/swooletw/laravel-swoole/wiki/7.-Websocket)，所以很自然的，我们可以将它的这部分实现移植到 LaravelS 中来。
 
-### 编写数据解析器Parser
+### 6.2 编写数据解析器Parser
 
 
 
-### 编写数据发送类Pusher
+### 6.3 编写数据发送类Pusher
 
-重构后的 `WebSocketHandler` 类将只承担路由和控制器功能，涉及业务逻辑的相关服务都会被剥离到独立的业务单元中完成，包括数据发送，因为我们需要对其进行统一的封装处理，以便能够被客户端解析。
+重构后的 `WebSocketHandler` 类将只承担**路由和控制器**功能，涉及**业务逻辑**的相关服务都会被剥离到独立的业务单元中完成，包括数据发送，因为我们需要对其进行统一的封装处理，以便能够被客户端解析。
 
 
 
 `Pusher`主要用于数据处理后发送给客户端的业务逻辑处理，包括数据解析和统一封装、是否广播等。
 
-### 编写WebSocket服务类
+### 6.4 编写WebSocket服务类
 
 除了简单的数据接收和发送之外，在线聊天室还有很多其它复杂功能，所以有必要创建一个单独的服务类来实现这些功能，比如**房间的加入和退出、用户的认证和获取、数据的发送和广播**等，最终将会在这里调用 `Pusher` 类发送数据，可以说这个服务类是整个 WebSocket 后端服务的核心。
 
@@ -292,10 +292,36 @@ Websocket 客户端使用的是 [socket.io-client](https://github.com/socketio/s
 
 
 
-### 重写WebSocketHandler处理器实现
+### 6.5 重写WebSocketHandler处理器实现
 
 
 
 
 
-### socket.io客户端代码调整
+### 6.6 socket.io客户端代码调整
+
+
+
+
+
+## 7 基Muse UI的前端用户认证功能实现
+
+
+
+
+
+### 前后端注册接口联调
+
+
+
+🔖
+
+
+
+### 修改用户界面代码适配Muse UI 3.0
+
+🔖
+
+
+
+### 前后端登录接口联调
